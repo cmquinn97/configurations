@@ -1,0 +1,155 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "editor.lineNumbers": "relative",
+    "window.zoomLevel": -1,
+    "vim.leader": "<space>",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "<leader>",
+                "m"
+            ],
+            "commands": [
+                "editor.multiCursorModifier"
+            ],
+        },
+        {
+            "before": [
+                "g",
+                "o"
+            ],
+            "after": [
+                "<C-o>"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "r"
+            ],
+            "commands": [
+                "editor.action.goToReferences"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "f"
+            ],
+            "commands": [
+                "workbench.action.quickOpen"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "F"
+            ],
+            "commands": [
+                "workbench.action.showCommands"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.showAllSymbols"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "k"
+            ],
+            "commands": [
+                "workbench.action.navigateUp"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "j"
+            ],
+            "commands": [
+                "workbench.action.navigateDown"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l"
+            ],
+            "commands": [
+                "workbench.action.navigateRight"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "h"
+            ],
+            "commands": [
+                "workbench.action.navigateLeft"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "r"
+            ],
+            "commands": [
+                "editor.action.rename"
+            ]
+        },
+    ],
+    "go.gopath": "/Users/chrisquinn/go",
+    "workbench.colorTheme": "City Lights",
+    "go.useLanguageServer": true,
+    /Rust Configs
+    "rust-client.rustupPath": "$HOME/.cargo/bin/rustup",
+    "rust-client.engine": "rust-analyzer",
+    "[rust]": {
+        "editor.defaultFormatter": "matklad.rust-analyzer"
+    },
+    "workbench.colorCustomizations": {
+        "activityBarBadge.background": "#388E3C",
+        "activityBar.activeBorder": "#388E3C",
+        "list.activeSelectionForeground": "#388E3C",
+        "list.inactiveSelectionForeground": "#388E3C",
+        "list.highlightForeground": "#388E3C",
+        "scrollbarSlider.activeBackground": "#388E3C50",
+        "editorSuggestWidget.highlightForeground": "#388E3C",
+        "textLink.foreground": "#388E3C",
+        "progressBar.background": "#388E3C",
+        "pickerGroup.foreground": "#388E3C",
+        "tab.activeBorder": "#388E3C",
+        "notificationLink.foreground": "#388E3C",
+        "editorWidget.resizeBorder": "#388E3C",
+        "editorWidget.border": "#388E3C",
+        "settings.modifiedItemIndicator": "#388E3C",
+        "settings.headerForeground": "#388E3C",
+        "panelTitle.activeBorder": "#388E3C",
+        "breadcrumb.activeSelectionForeground": "#388E3C",
+        "menu.selectionForeground": "#388E3C",
+        "menubar.selectionForeground": "#388E3C",
+        "editor.findMatchBorder": "#388E3C",
+        "selection.background": "#388E3C40",
+        "statusBarItem.remoteBackground": "#388E3C"
+    },
+    "materialTheme.accent": "Breaking Bad",
+    "rust-client.autoStartRls": false,
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+}
