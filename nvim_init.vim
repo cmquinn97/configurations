@@ -1,47 +1,35 @@
-if exists('g:vscode')
-    " VSCode extension
-call plug#begin()
-call plug#end()
-xmap gc  <Plug>VSCodeCommentary
-nmap gc  <Plug>VSCodeCommentary
-omap gc  <Plug>VSCodeCommentary
-nmap gcc <Plug>VSCodeCommentaryLine
-
-
-
-let mapleader=";"
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>h <C-W>h
-nnoremap <leader>j <C-W>j
-nnoremap <leader>k <C-W>k
-nnoremap <leader>l <C-W>l
-else
-    " ordinary neovim
-
 " Plugins
-call plug#begin()
+""""""""""""""""""""""""""""""""""""""
+call plug#begin() 
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'vim-scripts/bash-support.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
-Plug 'jremmen/vim-ripgrep'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-fugitive'
-" Plug 'SirVer/ultisnips'
 call plug#end()
+""""""""""""""""""""""""""""""""""""""
 
 " Theme
+""""""""""""""""""""""""""""""""""""""
 set background=dark
-colorscheme gruvbox
+colorscheme base16-dracula
+""""""""""""""""""""""""""""""""""""""
 
 " Syntax and Sets
+""""""""""""""""""""""""""""""""""""""
 syntax on
 set expandtab
 set noswapfile
@@ -49,11 +37,16 @@ set ts=4 sw=4
 set relativenumber
 set termguicolors
 set incsearch
+""""""""""""""""""""""""""""""""""""""
 
 " Need this for fzf in vim
+""""""""""""""""""""""""""""""""""""""
 set rtp+=/usr/local/opt/fzf
+""""""""""""""""""""""""""""""""""""""
+
 
 " golang config
+""""""""""""""""""""""""""""""""""""""
 let g:go_highlight_function_calls = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -67,60 +60,42 @@ let g:go_auto_type_info = 1
 let g:go_fmt_command = "goimports"
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
-
-
-" go debug shortcuts
-nnoremap gds :GoDebugStart<CR> nnoremap gdb :GoDebugBreakpoint<CR>
-nnoremap gdn :GoDebugNext<CR>
-nnoremap gdt :GoDebugStep<CR>
-nnoremap gdz :GoDebugStop<CR>
-nnoremap gdo :GoDebugStepOut<CR>
-nnoremap gdc :GoDebugContinue<CR>
-nnoremap gdp :GoDebugPrint
-
-
-
+""""""""""""""""""""""""""""""""""""""
 
 
 " terraform config
+""""""""""""""""""""""""""""""""""""""
 let g:terraform_fmt_on_save=1
 let g:terraform_fold_sections=1
 let g:terraform_align=1
+""""""""""""""""""""""""""""""""""""""
 
 
-
-set mouse=a
 " Key Mappings
-let mapleader=";"
+""""""""""""""""""""""""""""""""""""""
+set mouse=a
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+inoremap jk <Esc>
+
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-inoremap jk <Esc>
+
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>f :Files<CR>
-nnoremap <leader>r :Rg
-nnoremap go <C-O>
-nnoremap <leader>h <C-W>h
-nnoremap <leader>j <C-W>j
-nnoremap <leader>k <C-W>k
-nnoremap <leader>l <C-W>l
+nnoremap <leader>r :Rg<CR>
+nnoremap <leader>b :BLines<CR>
+""""""""""""""""""""""""""""""""""""""
 
-" Go to tab by number
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
-
-" Remap keys for gotos
+" Coc shortcuts
+""""""""""""""""""""""""""""""""""""""
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>R <Plug>(coc-rename)
+""""""""""""""""""""""""""""""""""""""
+
 " Configurations
 "
 " -------------------------------------------------------------------------------------------------
@@ -137,6 +112,9 @@ set updatetime=300
 set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
+
+
+
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -155,12 +133,17 @@ endfunction
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
 
 
 " Use U to show documentation in preview window
 nnoremap <silent> U :call <SID>show_documentation()<CR>
 
-endif
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
