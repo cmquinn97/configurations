@@ -1,13 +1,11 @@
 " Plugins
 """"""""""""""""""""""""""""""""""""""
 call plug#begin() 
+Plug 'vimwiki/vimwiki'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'vimwiki/vimwiki'
-Plug 'vim-scripts/bash-support.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
@@ -19,13 +17,21 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-fugitive'
+Plug 'justinmk/vim-sneak'
+Plug 'flazz/vim-colorschemes'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'kassio/neoterm'
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 """"""""""""""""""""""""""""""""""""""
 
 " Theme
 """"""""""""""""""""""""""""""""""""""
 set background=dark
-colorscheme base16-dracula
+colorscheme molokai
 """"""""""""""""""""""""""""""""""""""
 
 " Syntax and Sets
@@ -34,7 +40,8 @@ syntax on
 set expandtab
 set noswapfile
 set ts=4 sw=4
-set relativenumber
+set number
+" set relativenumber
 set termguicolors
 set incsearch
 """"""""""""""""""""""""""""""""""""""
@@ -43,6 +50,10 @@ set incsearch
 """"""""""""""""""""""""""""""""""""""
 set rtp+=/usr/local/opt/fzf
 """"""""""""""""""""""""""""""""""""""
+
+" Neoterm config
+""""""""""""""""""""""""""""""""""""""
+let g:neoterm_default_mod = "botright"
 
 
 " golang config
@@ -84,14 +95,19 @@ nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>r :Rg<CR>
-nnoremap <leader>b :BLines<CR>
+nnoremap <leader>s :BLines<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <C-t> :Ttoggle<CR>
+nnoremap <leader>t :T 
+tnoremap jk <C-\><C-n>
+
+nmap <C-h> :noh<CR>
 """"""""""""""""""""""""""""""""""""""
 
 " Coc shortcuts
 """"""""""""""""""""""""""""""""""""""
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>R <Plug>(coc-rename)
 """"""""""""""""""""""""""""""""""""""
@@ -136,8 +152,8 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 
 
-" Use U to show documentation in preview window
-nnoremap <silent> U :call <SID>show_documentation()<CR>
+" Use Ctrl+K to show documentation in preview window
+nnoremap <C-k> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -146,4 +162,3 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
