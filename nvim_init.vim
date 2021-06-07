@@ -21,10 +21,11 @@ Plug 'justinmk/vim-sneak'
 Plug 'flazz/vim-colorschemes'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'kassio/neoterm'
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 """"""""""""""""""""""""""""""""""""""
 
@@ -54,6 +55,18 @@ set rtp+=/usr/local/opt/fzf
 " Neoterm config
 """"""""""""""""""""""""""""""""""""""
 let g:neoterm_default_mod = "botright"
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+  },
+}
+EOF
 
 
 " golang config
@@ -92,11 +105,29 @@ inoremap jk <Esc>
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+lua <<EOF
+require'telescope'.setup {
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        }
+    }
+}
+require('telescope').load_extension('fzy_native')
+EOF
+
+
 nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>r :Rg<CR>
+" nnoremap <leader>f :Files<CR>
+" nnoremap <leader>r :Rg<CR>
 nnoremap <leader>s :BLines<CR>
-nnoremap <leader>b :Buffers<CR>
+" nnoremap <leader>b :Buffers<CR>
 nnoremap <C-t> :Ttoggle<CR>
 nnoremap <leader>t :T 
 tnoremap jk <C-\><C-n>
